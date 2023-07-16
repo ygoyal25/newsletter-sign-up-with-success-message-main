@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+    html {
+      box-sizing: border-box;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+    @font-face {
+      font-family: "Roboto-Bold";
+      src: url('./assets/fonts/Roboto-Bold.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: "Roboto";
+      src: url('./assets/fonts/Roboto-Regular.ttf') format('truetype');
+    }
+    h1 {
+      font-size: 3rem;
+      font-family: Roboto-Bold;
+      color: hsl(234, 29%, 20%);
+    }
+    body {
+      font-family: Roboto;
+      font-weight: 400;
+      background-color: hsl(235, 18%, 26%);
+      color: hsl(231, 7%, 60%);
+      font-size: 16px;
+      height: 100vh;
+      display: flex;
+    }
+    .main {
+      margin: auto;
+      /* margin-top: 50px; */
+      width: 60%;
+      min-width: 850px;
+      background-color: hsl(0, 0%, 100%);
+      border-radius: 20px;
+      display: flex;
+    }
+
+    #success_message {
+      width: 400px;
+      padding: 50px;
+      background-color: hsl(0, 0%, 100%);
+      border-radius: 20px;
+      margin: auto;
+    }
+    .left, .right {
+      flex: 1;
+    }
+    .left {
+      padding: 40px;
+    }
+    .right {
+      padding: 15px;
+    }
+    img {
+      width: 100%;
+    }
+    /* li {
+      list-style-image: url('./assets/images/icon-list.svg');
+    } */
+    ul {
+      list-style: none;
+      padding: 10px 25px;
+    }
+
+    li {
+      margin: 10px 0;
+    }
+
+    li:before {
+      content: "";
+      height: 1rem;
+      width: 1rem;
+      display: block;
+      float: left;
+      margin-left: -1.5rem;
+      background-position: center;
+      background-repeat: no-repeat;
+      background: url('./assets/images/icon-list.svg');
+      background-size: cover;
+    }
+    label, span {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: hsl(234, 29%, 20%);
+      margin-bottom: 3px;
+      float: left;
+    }
+    input {
+      width: 100%;
+      padding: 13px 15px;
+      margin-top: 5px;
+      border: 2px solid hsl(231, 7%, 60%);
+      border-radius: 7px;
+    }
+    button {
+      width: 100%;
+      background-color: hsl(234, 29%, 20%);
+      font-weight: 700;
+      /* background-color: hsl(4, 100%, 67%); */
+      color: white;
+      border-radius: 7px;
+      padding: 13px;
+      border: none;
+    }
+    span {
+      float: right;
+      color: hsl(4, 100%, 67%);
+      display: none;
+    }
+    #success_message {
+      display: none;
+    }
+
+    .mobile_top {
+      display: none;
+    }
+
+    @media screen and (max-width: 1000px) {
+      .main {
+        width: 50%;
+        min-width: 400px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .right {
+        display: none;
+      }
+
+      .mobile_top {
+        display: block;
+      }
+
+      body {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sign-up form start -->
+  <div id="main" class="main">
+    <div class="mobile_top">
+      <img src="./assets/images/illustration-sign-up-mobile.svg" />
+    </div>
+    <div class="left">
+      <h1>Stay updated!</h1>
+
+      Join 60,000+ product managers receiving monthly updates on:
+    
+      <ul>
+        <li>Product discovery and building what matters</li>
+        <li>Measuring to ensure updates are a success</li>
+        <li>And much more!</li>
+      </ul>
+    
+      <form onsubmit="submitForm(event)">
+        <label for="email">Email address</label>
+        <span id="validation_message">Valid email required</span>
+        <br>
+        <input onblur="checkIfEmailIsValid()" id="email" type="text" placeholder="email@company.com" />
+        <br>
+        <br>
+        <button id="submit_button" onmouseenter="toggleColor(event)" onmouseleave="toggleColor(event, 'leave')" type="submit">Subscribe to monthly newsletter</button>
+      </form>
+    </div>
+    <div class="right">
+      <img src="./assets/images/illustration-sign-up-desktop.svg" />
+    </div>
+  </div>
+
+  
+
+  <!-- Sign-up form end -->
+
+  <!-- Success message start -->
+
+  <div id="success_message">
+    <img style="width: 60px; height: 60px;" src="./assets/images/icon-success.svg" />
+    <h1>Thanks for subscribing!</h1>
+
+    <p>A confirmation email has been sent to <b id="email_text">test</b> Please open it and click the button inside to confirm your subscription.</p>
+    <br>
+    <button onclick="" onmouseenter="toggleColor(event)" onmouseleave="toggleColor(event, 'leave')">Dismiss message</button>
+  </div>
+  
+
+  <!-- Success message end -->
+  
+  <!-- <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div> -->
+  <script>
+    var isValidEmail = false;
+    const input = document.getElementById("email");
+    const validationMessage = document.getElementById("validation_message");
+    const submitButton = document.getElementById("submit_button");
+    function checkIfEmailIsValid() {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.value))
+      {
+        validationMessage.style.display = "none";
+        isValidEmail = true;
+      } else {
+        validationMessage.style.display = "inline";
+        isValidEmail = false;
+      }
+    }
+
+    function submitForm(e) {
+      e.preventDefault()
+      if (isValidEmail) {
+        document.getElementById('main').style.display = 'none';
+        document.getElementById('success_message').style.display = 'block';
+        const emailText = document.getElementById('email_text');
+        emailText.innerText = `${input.value}.`;
+        emailText.style.color = "hsl(234, 29%, 20%)";
+        emailText.style.fontWeight = 700;
+      }
+    }
+
+    function toggleColor(event, type) {
+      if (type === 'leave') {
+        event.target.style.background = "hsl(234, 29%, 20%)";
+      } else if (isValidEmail) {
+        event.target.style.background = "hsl(4, 100%, 67%)";
+      } else {
+        event.target.style.background = "hsl(234, 29%, 20%)";
+      }
+    }
+  </script>
+</body>
+</html>
